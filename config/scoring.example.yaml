@@ -1,0 +1,47 @@
+# Dedup thresholds + curation scoring weights.
+# Copy this file to `scoring.yaml`. Everything here is tunable without touching code.
+
+# --- Deduplication ---
+dedup:
+  phash_hamming_max: 6          # union-find edge if pHash Hamming distance <= this
+  low_confidence_window_days: 30 # widened window for low-date-confidence assets
+  # Keeper-selection rank order (first differentiator wins):
+  #   1. source priority (config/sources.yaml -> priority)
+  #   2. resolution (w*h)
+  #   3. bytes
+  #   4. EXIF completeness
+  keeper_rank: [source_priority, resolution, bytes, exif_completeness]
+
+# --- Quality gate — all advisory, nothing is ever deleted ---
+quality:
+  blur_percentile: 15           # per-source lower-tail cut for variance-of-Laplacian
+  dark_luma_max: 25             # mean luminance below -> flag as dark
+  blown_clip_frac_max: 0.35     # fraction of blown highlights -> flag over-exposed
+  screenshot_aspect_ratios:     # common device screen aspects (w:h) to flag as screenshots
+    - [9, 16]
+    - [9, 19.5]
+    - [3, 4]
+  document_min_edge_density: 0.12
+  document_max_saturation: 0.20
+
+# --- Curation scoring ---
+score:
+  weights:
+    quality: 1.0                # w_quality
+    hero: 2.0                   # w_hero  (milestone-date boost)
+    diverse: 1.0                # w_diverse (visual diversity within a chapter)
+    penalty: 3.0                # w_penalty (screenshot | document | extreme blur)
+    favorite: 3.0               # w_favorite — a photo you starred in your library
+    people: 1.0                 # w_people — 2+ face-tagged (surfaces groups; never penalizes solo)
+  max_per_day: 15               # greedy cap: at most N photos from any single day
+  # Per-chapter shortlist target multiplier of the accepted target
+  # (shortlist = target * this, after the per-day cap + near-dup skip). A larger
+  # value gives you a wider pool to pare down in the editor.
+  shortlist_multiplier: 6.0
+  # Milestone dates get a hero boost (ISO YYYY-MM-DD). A photo taken ON one of
+  # these days floats up in the shortlist. These are ILLUSTRATIVE EXAMPLES —
+  # replace them with your own important days (or leave the list empty).
+  milestone_dates:
+    - "2005-06-15"   # example: a wedding day
+    - "2010-09-01"   # example: a milestone
+    # Add your own YYYY-MM-DD anchors here, or delete these examples.

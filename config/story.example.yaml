@@ -1,0 +1,41 @@
+# Editorial ordering overrides for the automatic draft (OPTIONAL).
+#
+# Copy this file to `story.yaml`. You usually do NOT need it: by default photos
+# keep their chapter order and you rearrange freely in the editor. Use this file
+# only for the few exceptional "this must open the chapter" / "these four go on
+# page 1" beats you want baked into the auto-draft.
+#
+# The asset ids below (40-hex) are PLACEHOLDERS — replace them with your own.
+# Find a photo's asset id in the editor, or in manifest.db.
+version: 1
+
+chapters:
+  01_early_years:
+    # Pin specific photos to the front of the chapter, in this order.
+    pinned_first:
+      - "0000000000000000000000000000000000000001"   # <- your chosen opener
+      - "0000000000000000000000000000000000000002"
+
+    # Force an exact layout for a specific page in the chapter.
+    page_overrides:
+      "1":
+        assets:
+          - "0000000000000000000000000000000000000001"
+          - "0000000000000000000000000000000000000002"
+          - "0000000000000000000000000000000000000003"
+          - "0000000000000000000000000000000000000004"
+        layout_style: masonry_quad
+        show_title: false
+
+  04_growing_family:
+    # An event can be pinned/prioritised by label + tag instead of by id.
+    pinned_first:
+      - "0000000000000000000000000000000000000005"   # <- a chapter-opening photo
+    event_aliases:
+      a_big_day:                 # your event key
+        - "A Big Day"            # display label(s) that map to this event
+        - a_big_day
+    priority_events:
+      - a_big_day
+    priority_tags:
+      - milestones

@@ -1,0 +1,3 @@
+# Normalize line endings: everything git decides is text is stored as LF.
+# (Fixes cross-platform CRLF churn; Windows checkouts still work fine.)
+* text=auto

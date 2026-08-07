@@ -1,0 +1,41 @@
+# Chapter definitions — the chronological spine of the book.
+#
+# Copy this file to `chapters.yaml` and edit it to match YOUR book's structure.
+# Chapters are the eras your photos are grouped into. You can assign photos to
+# chapters two ways:
+#   1. by date (the start/end windows below), or
+#   2. by hand, using the era-sorter (`photobook erasort`) — more reliable when
+#      your sources have missing or wrong timestamps.
+#
+# The dates below are ILLUSTRATIVE EXAMPLES ONLY — replace them with your own.
+#
+# CONTRACT (enforced by `photobook chapter --validate`):
+#   - chapters are contiguous and non-overlapping
+#   - each chapter's `start` = the previous chapter's `end` + 1 day
+#   - all dates are ISO (YYYY-MM-DD)
+
+chapters:
+  - id: "01_early_years"
+    title: "The Early Years"
+    start: "2001-01-01"
+    end: "2003-12-31"
+
+  - id: "02_travels"
+    title: "Travels"
+    start: "2004-01-01"
+    end: "2006-12-31"
+
+  - id: "03_new_home"
+    title: "A New Home"
+    start: "2007-01-01"
+    end: "2009-12-31"
+
+  - id: "04_growing_family"
+    title: "A Growing Family"
+    start: "2010-01-01"
+    end: "2012-12-31"
+
+# Per-chapter curation targets (how many photos to shortlist per chapter).
+# Leave empty to let the pipeline choose; set after a first pass reveals the
+# real per-chapter counts. Example: { "01_early_years": 30, "02_travels": 45 }
+targets: {}

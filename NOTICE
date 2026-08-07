@@ -1,0 +1,50 @@
+diy-photobook
+=============
+
+Copyright (c) 2026 Victor Sowers
+
+Licensed under the PolyForm Noncommercial License 1.0.0 (see LICENSE).
+Source-available and free for personal / non-commercial use. NOT for commercial
+use. This is "source-available," which is NOT the same as OSI-approved "open
+source"; non-commercial license terms are also inherently soft to enforce.
+
+No warranty
+-----------
+As stated in the LICENSE, the software is provided AS IS, without warranty of
+any kind. Printing a physical book costs real money — always order ONE proof
+copy before ordering finals.
+
+Print-shop specifications change
+--------------------------------
+The print geometry in this toolkit (trim, bleed, spine width, full-wrap cover
+panels) is tuned to one shop and one size (Blurb Large-Square 12×12 in) as a
+worked reference. PRINT SHOPS CHANGE THEIR TEMPLATES WITHOUT NOTICE. Before you
+order, ALWAYS re-verify the current template with your shop's own live
+PDF-to-Book calculator, and date-stamp any spec you record. See
+docs/PRINT_RUNBOOK.md.
+
+Third-party components
+----------------------
+This project depends on third-party software, each under its own license. It
+does NOT bundle or relicense any of them — you install them yourself:
+
+- Pillow, pillow-heif, rawpy, imagehash, piexif, NumPy, pandas, PyYAML, click
+  — installed via pip (see requirements.txt); each retains its own license.
+- OpenCV (opencv-python-headless) — includes the Haar cascade classifiers used
+  by the gutter/face scan; under its own (Apache-2.0) license.
+- Playwright + Chromium — installed via `playwright install chromium`.
+
+Real-ESRGAN (OPTIONAL, not included)
+------------------------------------
+The optional GPU upscaler (scripts/upscale_batch.py) drives the third-party
+`realesrgan-ncnn-vulkan` binary. That binary is NOT bundled with this project —
+it is a ~45MB download with its own license and attribution requirements.
+Download it yourself from the upstream Real-ESRGAN project and comply with its
+license. The reliable default path in this toolkit uses CPU Lanczos and requires
+no external binary (see docs/UPSCALING.md).
+
+Fonts
+-----
+The exporter uses whatever serif/sans fonts it can find on your system (or the
+ones you point it at via PHOTOBOOK_FONT_SERIF / PHOTOBOOK_FONT_SANS). No fonts
+are bundled; each font on your machine retains its own license.

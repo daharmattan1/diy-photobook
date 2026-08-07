@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diy-photobook"
+version = "0.1.0"
+description = "Local, zero-cloud toolkit to build your own print-ready photo book (ingest -> dedup -> curate -> export)."
+requires-python = ">=3.12"
+readme = "README.md"
+license = { text = "PolyForm-Noncommercial-1.0.0" }
+dependencies = [
+    "pillow-heif==1.4.0",
+    "rawpy==0.27.0",
+    "imagehash==4.3.2",
+    "piexif==1.1.3",
+    "Pillow>=10.0",
+    "numpy>=1.26",
+    "pandas>=2.0",
+    "opencv-python-headless>=4.9,<5",  # 5.x drops cv2.CascadeClassifier (photobook.faces)
+    "playwright>=1.44",
+    "click>=8.1",
+    "PyYAML>=6.0",
+]
+
+[project.scripts]
+photobook = "photobook.cli:cli"
+
+[tool.setuptools]
+packages = ["photobook"]
+
+# The browser editor's static assets live inside the package and must ship in
+# wheels/sdists, or `photobook editor` 404s on every asset in a non-editable
+# install.
+[tool.setuptools.package-data]
+photobook = ["editor/index.html", "editor/css/*.css", "editor/js/*.js"]

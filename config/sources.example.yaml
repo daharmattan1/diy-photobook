@@ -1,0 +1,49 @@
+# Source configuration for ingest + date-repair + dedup priority.
+# Copy this file to `sources.yaml` and fill in the paths for YOUR photo sources.
+
+# --- Source priority (used by dedup keeper-selection) ---
+# Higher = preferred when the same photo appears in multiple sources.
+priority:
+  originals: 100       # highest-fidelity originals (RAW/TIFF from a camera/thumbdrive)
+  google: 80           # Google Photos Takeout — usually full-res, has sidecar dates
+  whatsapp: 50         # messaging — often recompressed
+  signal: 50           # messaging — often recompressed
+  web: 20              # web-resized gap-fill — lowest fidelity
+
+# --- Source paths (set at ingest time; recorded here for reproducibility) ---
+# Leave blank until located; ingest is driven by `--src` on the CLI. Use paths
+# on YOUR machine (an external drive is a good idea — full-res libraries are huge).
+paths:
+  originals: ""        # e.g. "E:/photo-originals"
+  whatsapp: ""         # e.g. your exported WhatsApp media folder
+  signal: ""           # e.g. your Signal export dir
+  google: ""           # dir where your Google Takeout ZIPs are unzipped
+
+# --- Filename date regexes (date-repair fallback) ---
+# First hit wins in the resolution order defined in daterepair.py. These cover
+# the common phone/app naming schemes; add your own as needed.
+filename_date_patterns:
+  - name: whatsapp
+    pattern: 'IMG-(\d{4})(\d{2})(\d{2})-WA'   # IMG-20180813-WA0001.jpg
+    groups: [year, month, day]
+  - name: signal
+    pattern: 'signal-(\d{4})-(\d{2})-(\d{2})'  # signal-2020-01-15-....jpg
+    groups: [year, month, day]
+  - name: pixel
+    pattern: 'PXL_(\d{4})(\d{2})(\d{2})'       # PXL_20220101_...jpg
+    groups: [year, month, day]
+  - name: screenshot
+    pattern: 'Screenshot_(\d{4})(\d{2})(\d{2})'
+    groups: [year, month, day]
+  - name: generic
+    pattern: '(20\d{2})(\d{2})(\d{2})'         # any YYYYMMDD run
+    groups: [year, month, day]
+
+# --- Optional web gap-fill scope — BOUNDED, not a whole-site scrape ---
+# If some photos only survive on an old blog/gallery, list the SPECIFIC page URLs
+# to fetch. Only those pages are fetched. Empty = web ingest is a no-op.
+web:
+  base_url: "https://example.com"
+  target_pages: []              # e.g. ["https://example.com/gallery/2019-trip"]
+  max_files: 150                # hard cap; stop after this many images
+  min_long_edge_px: 1500        # below this -> flag as print-risk (low-res)

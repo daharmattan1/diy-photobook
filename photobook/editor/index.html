@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Photo Book Editor</title>
+  <link rel="stylesheet" href="/css/editor.css" />
+</head>
+<body data-ready="false">
+  <header>
+    <span class="brand">Photo Book Editor</span>
+    <button id="view-grid" title="Book map">Grid</button>
+    <button id="view-detail" title="Spread detail">Spread</button>
+    <span class="spacer"></span>
+    <button id="undo" title="Undo (Ctrl+Z)" disabled>Undo</button>
+    <button id="redo" title="Redo (Ctrl+Y)" disabled>Redo</button>
+    <button id="add-spread" title="Add a spread after the current one">+ Spread</button>
+    <button id="delete-spread" title="Delete the current spread">&minus; Spread</button>
+    <button id="hide-used" title="Hide photos already placed">Hide used</button>
+    <button id="export" title="Export print PDF">Export</button>
+    <span class="save-status">rev&nbsp;<span id="book-revision">0</span></span>
+    <span id="save-status" class="save-status"></span>
+  </header>
+
+  <div class="body">
+    <main id="canvas" class="canvas"></main>
+    <aside class="tray">
+      <div class="tray-head">
+        <div class="row">
+          <strong>Photos</strong>
+          <span class="spacer"></span>
+          <span class="count"><span id="tray-count">0</span> / <span id="tray-total">0</span></span>
+          <button id="clear-filters" title="Clear all filters">Clear</button>
+        </div>
+        <div id="chips" class="chips"></div>
+      </div>
+      <div id="inspector" class="inspector" hidden></div>
+      <div id="tray-grid" class="tray-grid"></div>
+    </aside>
+  </div>
+
+  <div id="drag-ghost"><img alt="" /></div>
+
+  <div id="dpi-modal" class="modal-backdrop">
+    <div class="modal">
+      <h3>Low-resolution placement</h3>
+      <p id="dpi-modal-msg"></p>
+      <ul id="dpi-modal-list"></ul>
+      <div class="actions">
+        <button id="dpi-cancel">Undo</button>
+        <button id="dpi-confirm" class="active">Place anyway</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="export-modal" class="modal-backdrop">
+    <div class="modal">
+      <h3 id="export-title">Export</h3>
+      <p id="export-msg"></p>
+      <ul id="export-list"></ul>
+      <div class="actions">
+        <button id="export-approve-all" title="Record a keep-anyway override on every low-DPI cell above, then export">Approve all &amp; export</button>
+        <button id="export-close" class="active">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="layout-modal" class="modal-backdrop">
+    <div class="modal layout-modal-body">
+      <h3 id="layout-title">Change layout</h3>
+      <p id="layout-msg"></p>
+      <div id="layout-grid" class="layout-grid"></div>
+      <div class="actions">
+        <button id="layout-close" class="active">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

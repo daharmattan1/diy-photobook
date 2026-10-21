@@ -1,5 +1,7 @@
 # diy-photobook
 
+[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue.svg)](LICENSE)
+
 **Build your own print-ready, keep-forever photo book on your own machine — a local, zero-cloud toolkit that does the fiddly print-correctness math (bleed, gutter-safe zones, spine width, DPI, full-wrap cover) so you don't lose a weekend to it.**
 
 You bring the photos. The toolkit does the tedious, error-prone parts — sorting years of scattered images into a chronology, killing duplicates, catching the ones that are too low-resolution to print, and turning your laid-out spreads into a print shop's exact page geometry. Then you order one physical proof, check it, and order the finals.
